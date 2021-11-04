@@ -78,8 +78,8 @@ class Heap {
     // 마지막 노드 부모 노드 변경
     const removeNode = this.heap[0];
     const rootNode = this.heap.pop();
-    this.heap[0] = rootNode;
     let index = 0;
+    this.heap[index] = rootNode;
     const heapSize = this.heap.length;
 
     // 자식 노드가 있을 때 까지 진행
@@ -87,18 +87,23 @@ class Heap {
       const leftChildIndex = this.getLeftChildIndex(index);
       const rightChildIndex = this.getRightChildIndex(index);
 
+      let changeChildNodeIndex = 0;
       // 왼쪽 오른쪽 중에 작은 것 자식노드 인덱스
-      const changeChildNodeIndex =
-        rightChildIndex && this.heap[leftChildIndex] < this.heap[rightChildIndex]
-          ? rightChildIndex
-          : leftChildIndex;
+      if (this.heap[rightChildIndex]) {
+        if (this.heap[leftChildIndex] > this.heap[rightChildIndex]) {
+          changeChildNodeIndex = rightChildIndex;
+        } else {
+          changeChildNodeIndex = leftChildIndex;
+        }
+      } else {
+        changeChildNodeIndex = leftChildIndex;
+      }
 
       if (this.heap[changeChildNodeIndex] < rootNode) {
         this.heap[index] = this.heap[changeChildNodeIndex];
         index = changeChildNodeIndex;
       } else break;
     }
-
     this.heap[index] = rootNode;
     return removeNode;
   };

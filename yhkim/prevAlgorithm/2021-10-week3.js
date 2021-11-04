@@ -1,4 +1,4 @@
-const MinHeap = require('./prevAlgorithm/MinHeap');
+const MinHeap = require('./MinHeap');
 const readline = require('readline');
 const rl = readline.createInterface({
   input: process.stdin,
